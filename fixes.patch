@@ -1,6 +1,6 @@
 diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/cupswrapper/lpdwrapper cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/cupswrapper/lpdwrapper
 --- cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/cupswrapper/lpdwrapper	2017-07-18 03:34:17.000000000 +0200
-+++ cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/cupswrapper/lpdwrapper	2018-07-13 20:02:16.532257557 +0200
++++ cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/cupswrapper/lpdwrapper	2018-07-13 20:30:39.261152101 +0200
 @@ -72,18 +72,7 @@
  $ENV{NODENAME} = `uname -n`;
  
@@ -51,9 +51,33 @@ diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/
  $ENV{BRPRINTERRCFILE} = $TEMPRC;
  
  logprint( 0 , "TEMPRC    = $TEMPRC\n");
+diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWfunc cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWfunc
+--- cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWfunc	2017-07-18 03:34:17.000000000 +0200
++++ cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWfunc	2018-07-13 20:31:08.376844054 +0200
+@@ -3,7 +3,7 @@
+ [default]
+ Resolution={600}
+ Paper Source={Tray1}
+-Duplex={OFF}
++Duplex={ON}
+ Duplex Type={Long}
+ Paper Type={(LANG_USA,LANG_CANADA)=Letter,A4}
+ Media={PlainPaper}
+diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWrc cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWrc
+--- cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWrc	2017-07-18 03:34:17.000000000 +0200
++++ cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWrc	2018-07-13 20:31:19.032730938 +0200
+@@ -2,7 +2,7 @@
+ Language=LANG_USA
+ Resolution=600
+ PaperSource=Tray1
+-Duplex=OFF
++Duplex=ON
+ DuplexType=Long
+ PaperType=A4
+ Media=PlainPaper
 diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/lpd/lpdfilter cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/lpd/lpdfilter
 --- cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/lpd/lpdfilter	2017-07-18 03:34:17.000000000 +0200
-+++ cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/lpd/lpdfilter	2018-07-13 20:05:52.854288479 +0200
++++ cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/lpd/lpdfilter	2018-07-13 20:30:39.261152101 +0200
 @@ -87,9 +87,9 @@
  
  my $RCFILE=$ENV{BRPRINTERRCFILE};
