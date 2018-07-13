@@ -77,8 +77,20 @@ diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/
  Media=PlainPaper
 diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/lpd/lpdfilter cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/lpd/lpdfilter
 --- cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/lpd/lpdfilter	2017-07-18 03:34:17.000000000 +0200
-+++ cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/lpd/lpdfilter	2018-07-13 20:30:39.261152101 +0200
-@@ -87,9 +87,9 @@
++++ cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/lpd/lpdfilter	2018-07-13 20:34:19.002794117 +0200
+@@ -51,10 +51,7 @@
+ chomp($basedir);
+ $basedir =~ s/\/lpd\/.*$//g;
+ 
+-my $PRINTER=$basedir;
+-$PRINTER =~ s/^\/opt\/.*\/Printers\///g;
+-$PRINTER =~ s/\/lpd\/.*$//g;
+-$PRINTER =~ s/\///g;
++my $PRINTER = "HLL2350DW";
+ 
+ my $INPUT_TEMP='';
+ my $FILE_TYPE="PostScript";
+@@ -87,9 +84,9 @@
  
  my $RCFILE=$ENV{BRPRINTERRCFILE};
  if ( $RCFILE eq '' ){
@@ -90,7 +102,7 @@ diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/
  $FLAG = `grep 'flags1='  $FUNCFILE | sed s/'flags1='//g`;
  chomp($FLAG);
  if ( $FLAG eq '' ){
-@@ -99,7 +99,7 @@
+@@ -99,7 +96,7 @@
  $offset = `grep 'offset='  $FUNCFILE | sed s/'offset='//g`;
  chomp($offset);
  
