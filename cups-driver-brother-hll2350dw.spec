@@ -3,7 +3,7 @@ Summary:	A set of CUPS printer drivers for Brother HL-L2352DW printer
 Name:		cups-driver-brother-hll2350dw
 Version:	4.0.0
 Release:	1
-License:	GPL
+License:	GPL/EULA
 Group:		Applications
 Source0:	http://download.brother.com/welcome/dlf103565/hll2350dwpdrv-%{version}-1.i386.rpm
 # Source0-md5:	4d6261c7ca265f4ac88b7766faae3498
