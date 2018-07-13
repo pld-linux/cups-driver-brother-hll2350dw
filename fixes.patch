@@ -1,7 +1,26 @@
 diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/cupswrapper/lpdwrapper cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/cupswrapper/lpdwrapper
 --- cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/cupswrapper/lpdwrapper	2017-07-18 03:34:17.000000000 +0200
-+++ cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/cupswrapper/lpdwrapper	2018-07-13 20:30:39.261152101 +0200
-@@ -72,18 +72,7 @@
++++ cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/cupswrapper/lpdwrapper	2018-07-13 20:43:46.948474236 +0200
+@@ -21,9 +21,6 @@
+ #
+ 
+ 
+-use Cwd 'realpath';
+-
+-
+ $ppdcust = "";
+ 
+ #   log functions
+@@ -55,7 +52,7 @@
+ 
+ 
+ 
+-$LPDCONFIGEXE="brprintconflsr3";
++$LPDCONFIGEXE="/usr/bin/brprintconflsr3";
+ 
+ my $INPUT_PS   = "/tmp/br_cupswrapper_ml2_input.ps";
+ my $OUTPUT_PRN = "/tmp/br_cupswrapper_ml2_output.prn";
+@@ -72,18 +69,7 @@
  $ENV{NODENAME} = `uname -n`;
  
  
@@ -21,7 +40,7 @@ diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/
  
  my $cmdoptions=$ARGV[4];
  my $PPD = $ENV{PPD};
-@@ -92,10 +81,7 @@
+@@ -92,10 +78,7 @@
      $CUPSINPUT=$ARGV[7];
  }
  
@@ -33,7 +52,7 @@ diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/
  
  for  (my $i = 0 ; $i < @ARGV ; $i ++){
      logprint( 0 , "ARG$i      = $ARGV[$i]\n");
-@@ -109,7 +95,7 @@
+@@ -109,7 +92,7 @@
  logprint( 0 , "$0 \"$ARGV[1]\"  \"$ARGV[2]\"  \"$ARGV[3]\"  \"$ARGV[4]\"  \"$ARGV[5]\"  \"$ARGV[6]\"\n");  
  
  
@@ -42,7 +61,7 @@ diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/
  
  logprint( 0 , "\n");
  
-@@ -378,7 +364,7 @@
+@@ -378,7 +361,7 @@
  my $TEMPRC = "/tmp/br".$PRINTER."rc_".$$;
  
  
@@ -51,6 +70,19 @@ diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/
  $ENV{BRPRINTERRCFILE} = $TEMPRC;
  
  logprint( 0 , "TEMPRC    = $TEMPRC\n");
+@@ -806,11 +789,9 @@
+ sub exec_lpdconfig {
+     (my $basedir , my $PRINTER , my $lpr_options_ref) =  @_;
+ 
+-    my $lpddir = $basedir;
+     my %lpr_options = %$lpr_options_ref;
+ 
+-    $lpddir = $basedir."/lpd/";
+-    my $lpdconf = $lpddir.'/'.$LPDCONFIGEXE;
++    my $lpdconf = $LPDCONFIGEXE;
+ 
+     
+     while(($op , $val) = each(%lpr_options)){
 diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWfunc cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWfunc
 --- cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWfunc	2017-07-18 03:34:17.000000000 +0200
 +++ cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWfunc	2018-07-13 20:31:08.376844054 +0200
@@ -77,10 +109,28 @@ diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/
  Media=PlainPaper
 diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/lpd/lpdfilter cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/lpd/lpdfilter
 --- cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/lpd/lpdfilter	2017-07-18 03:34:17.000000000 +0200
-+++ cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/lpd/lpdfilter	2018-07-13 20:34:19.002794117 +0200
-@@ -51,10 +51,7 @@
- chomp($basedir);
- $basedir =~ s/\/lpd\/.*$//g;
++++ cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/lpd/lpdfilter	2018-07-13 20:44:20.764091996 +0200
+@@ -5,7 +5,6 @@
+ #   Copyright 2014-2017 Copyright Brother Industries,Ltd 2006-2017
+ #   All Rights Reserved.
+ 
+-use Cwd 'realpath';
+ use File::Copy;
+ 
+ my $FLAG="";
+@@ -41,20 +40,8 @@
+     UDEF     => {  width=>0     ,  height=>0     } 
+ );
+ my $HWMARGINS="no";
+-my $basedir = Cwd::realpath ($0);
+-if ( $basedir eq '' ){
+-  $basedir = `readlink $0`;
+-  if ( $basedir eq '' ){
+-      $basedir = `realpath $0`;
+-  }
+-}
+-chomp($basedir);
+-$basedir =~ s/\/lpd\/.*$//g;
  
 -my $PRINTER=$basedir;
 -$PRINTER =~ s/^\/opt\/.*\/Printers\///g;
@@ -90,8 +140,12 @@ diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/
  
  my $INPUT_TEMP='';
  my $FILE_TYPE="PostScript";
-@@ -87,9 +84,9 @@
+@@ -83,13 +70,11 @@
  
+ 
+ 
+-my $BR_PRT_PATH = $basedir;
+-
  my $RCFILE=$ENV{BRPRINTERRCFILE};
  if ( $RCFILE eq '' ){
 - $RCFILE=sprintf ("$BR_PRT_PATH/inf/br%src",$PRINTER);  
@@ -102,7 +156,7 @@ diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/
  $FLAG = `grep 'flags1='  $FUNCFILE | sed s/'flags1='//g`;
  chomp($FLAG);
  if ( $FLAG eq '' ){
-@@ -99,7 +96,7 @@
+@@ -99,7 +84,7 @@
  $offset = `grep 'offset='  $FUNCFILE | sed s/'offset='//g`;
  chomp($offset);
  
