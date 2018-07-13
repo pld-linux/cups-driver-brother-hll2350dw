@@ -1,0 +1,77 @@
+diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/cupswrapper/lpdwrapper cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/cupswrapper/lpdwrapper
+--- cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/cupswrapper/lpdwrapper	2017-07-18 03:34:17.000000000 +0200
++++ cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/cupswrapper/lpdwrapper	2018-07-13 20:02:16.532257557 +0200
+@@ -72,18 +72,7 @@
+ $ENV{NODENAME} = `uname -n`;
+ 
+ 
+-my $basedir = Cwd::realpath ($0);
+-if ( $basedir eq '' ){
+-  $basedir = `readlink $0`;
+-  if ( $basedir eq '' ){
+-      $basedir = `realpath $0`;
+-  }
+-}
+-chomp($basedir);
+-
+-$basedir =~ s/\/cupswrapper\/.*$//g;
+-
+-
++my $basedir = "/usr/lib/cups";
+ 
+ my $cmdoptions=$ARGV[4];
+ my $PPD = $ENV{PPD};
+@@ -92,10 +81,7 @@
+     $CUPSINPUT=$ARGV[7];
+ }
+ 
+-my $PRINTER=$basedir;
+-$PRINTER =~ s/^\/opt\/.*\/Printers\///g;
+-$PRINTER =~ s/\/cupswrapper.*$//g;
+-$PRINTER =~ s/\///g;
++my $PRINTER = "HLL2350DW";
+ 
+ for  (my $i = 0 ; $i < @ARGV ; $i ++){
+     logprint( 0 , "ARG$i      = $ARGV[$i]\n");
+@@ -109,7 +95,7 @@
+ logprint( 0 , "$0 \"$ARGV[1]\"  \"$ARGV[2]\"  \"$ARGV[3]\"  \"$ARGV[4]\"  \"$ARGV[5]\"  \"$ARGV[6]\"\n");  
+ 
+ 
+-my $LPDFILTER   =$basedir."/lpd/lpdfilter";
++my $LPDFILTER   =$basedir."/filter/lpdfilter";
+ 
+ logprint( 0 , "\n");
+ 
+@@ -378,7 +364,7 @@
+ my $TEMPRC = "/tmp/br".$PRINTER."rc_".$$;
+ 
+ 
+-`cp  $basedir/inf/br${PRINTER}rc  $TEMPRC`;
++`cp  /etc/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWrc  $TEMPRC`;
+ $ENV{BRPRINTERRCFILE} = $TEMPRC;
+ 
+ logprint( 0 , "TEMPRC    = $TEMPRC\n");
+diff -ur cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/lpd/lpdfilter cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/lpd/lpdfilter
+--- cups-driver-brother-hll2350dw-4.0.0.org/opt/brother/Printers/HLL2350DW/lpd/lpdfilter	2017-07-18 03:34:17.000000000 +0200
++++ cups-driver-brother-hll2350dw-4.0.0/opt/brother/Printers/HLL2350DW/lpd/lpdfilter	2018-07-13 20:05:52.854288479 +0200
+@@ -87,9 +87,9 @@
+ 
+ my $RCFILE=$ENV{BRPRINTERRCFILE};
+ if ( $RCFILE eq '' ){
+- $RCFILE=sprintf ("$BR_PRT_PATH/inf/br%src",$PRINTER);  
++ $RCFILE="/etc/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWrc";
+ }
+-$FUNCFILE=sprintf ("$BR_PRT_PATH/inf/br%sfunc",$PRINTER);  
++$FUNCFILE="/etc/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWfunc";
+ $FLAG = `grep 'flags1='  $FUNCFILE | sed s/'flags1='//g`;
+ chomp($FLAG);
+ if ( $FLAG eq '' ){
+@@ -99,7 +99,7 @@
+ $offset = `grep 'offset='  $FUNCFILE | sed s/'offset='//g`;
+ chomp($offset);
+ 
+-my $BRCONV="$BR_PRT_PATH/lpd/rawtobr3";
++my $BRCONV="/usr/bin/rawtobr3";
+ my $BRCONV_OP="-rc $RCFILE -flags $FLAG -offset $offset";
+ 
+ 
