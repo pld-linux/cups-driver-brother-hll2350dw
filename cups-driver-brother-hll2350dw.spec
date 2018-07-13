@@ -43,7 +43,7 @@ gzip $RPM_BUILD_ROOT%{_cupsppddir}/*.ppd
 
 cp -p opt/brother/Printers/HLL2350DW/cupswrapper/lpdwrapper $RPM_BUILD_ROOT%{_cupsfilterdir}/brother_lpdwrapper_HLL2350DW
 cp -p opt/brother/Printers/HLL2350DW/lpd/lpdfilter $RPM_BUILD_ROOT%{_cupsfilterdir}/lpdfilter
-cp -p opt/brother/Printers/HLL2350DW/lpd/%{_target_base_arch}/{brprintconflsr3,rawtobr3} $RPM_BUILD_ROOT%{_bindir}
+cp -p opt/brother/Printers/HLL2350DW/lpd/%{_target_cpu}/{brprintconflsr3,rawtobr3} $RPM_BUILD_ROOT%{_bindir}
 
 cp -p opt/brother/Printers/HLL2350DW/inf/brHLL2350DWrc $RPM_BUILD_ROOT/etc/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWrc
 cp -p opt/brother/Printers/HLL2350DW/inf/brHLL2350DWfunc $RPM_BUILD_ROOT/etc/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWfunc
