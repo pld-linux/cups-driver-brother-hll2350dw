@@ -29,8 +29,6 @@ CUPS driver for Brother HL-L2352DW.
 rpm2cpio %{SOURCE0} | cpio -dimu
 %patch0 -p1
 
-%build
-
 %install
 rm -rf $RPM_BUILD_ROOT
 
@@ -49,7 +47,7 @@ cp -p opt/brother/Printers/HLL2350DW/inf/brHLL2350DWrc $RPM_BUILD_ROOT/etc/opt/b
 cp -p opt/brother/Printers/HLL2350DW/inf/brHLL2350DWfunc $RPM_BUILD_ROOT/etc/opt/brother/Printers/HLL2350DW/inf/brHLL2350DWfunc
 
 echo '#!/bin/sh' > $RPM_BUILD_ROOT%{_bindir}/brprintconflsr3_HLL2350DW
-echo '%{_bindir}/brprintconflsr3 -P HLL2350DW $*' >> $RPM_BUILD_ROOT%{_bindir}/brprintconflsr3_HLL2350DW
+echo '%{_bindir}/brprintconflsr3 -P HLL2350DW "$@"' >> $RPM_BUILD_ROOT%{_bindir}/brprintconflsr3_HLL2350DW
 chmod 755 $RPM_BUILD_ROOT%{_bindir}/brprintconflsr3_HLL2350DW
 
 %clean
