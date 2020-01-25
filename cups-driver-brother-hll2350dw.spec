@@ -1,4 +1,3 @@
-%include        /usr/lib/rpm/macros.perl
 Summary:	A set of CUPS printer drivers for Brother HL-L2352DW printer
 Name:		cups-driver-brother-hll2350dw
 Version:	4.0.0
