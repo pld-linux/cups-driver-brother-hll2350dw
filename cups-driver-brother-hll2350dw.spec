@@ -26,7 +26,7 @@ CUPS driver for Brother HL-L2352DW.
 %prep
 %setup -qcT
 rpm2cpio %{SOURCE0} | cpio -dimu
-%patch0 -p1
+%patch -P0 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
